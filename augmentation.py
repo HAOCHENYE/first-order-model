@@ -3,18 +3,15 @@ Code from https://github.com/hassony2/torch_videovision
 """
 
 import numbers
-
 import random
-import numpy as np
-import PIL
-
-from skimage.transform import resize, rotate
-from skimage.util import pad
-import torchvision
-
 import warnings
 
-from skimage import img_as_ubyte, img_as_float
+import numpy as np
+import PIL
+import torchvision
+from numpy import pad
+from skimage import img_as_float, img_as_ubyte
+from skimage.transform import resize, rotate
 
 
 def crop_clip(clip, min_h, min_w, h, w):
