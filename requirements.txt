@@ -11,3 +11,4 @@ scikit-image
 scikit-learn
 scipy
 tqdm
+mmengine
