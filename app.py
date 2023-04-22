@@ -1,4 +1,5 @@
 import subprocess
+from io import BytesIO
 
 import gradio as gr
 import imageio
@@ -6,6 +7,7 @@ import numpy as np
 import torch
 import yaml
 from mmengine.device import get_device
+from mmengine.fileio import get
 from skimage import img_as_ubyte
 from skimage.transform import resize
 from tqdm import tqdm
@@ -30,7 +32,8 @@ def load_checkpoints(config_path, checkpoint_path):
     kp_detector = KPDetector(**config["model_params"]["kp_detector_params"], **config["model_params"]["common_params"])
     kp_detector.to(device=device)
 
-    checkpoint = torch.load(checkpoint_path, map_location=torch.device(device=device))
+    with BytesIO(get(checkpoint_path)) as f:
+        checkpoint = torch.load(f, map_location=torch.device(device=device))
 
     generator.load_state_dict(checkpoint["generator"])
     kp_detector.load_state_dict(checkpoint["kp_detector"])
@@ -112,7 +115,7 @@ article = "<p style='text-align: center'><a href='https://papers.nips.cc/paper/2
 examples = [["data/hurt1.mp4", "data/chairman.png"]]
 generator, kp_detector = load_checkpoints(
     config_path="config/vox-256.yaml",
-    checkpoint_path="checkpoints/vox-adv-cpk.pth.tar",
+    checkpoint_path="https://yehc.oss-cn-shanghai.aliyuncs.com/vox-adv-cpk.pth.tar",
 )
 
 iface = gr.Interface(
