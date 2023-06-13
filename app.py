@@ -115,7 +115,7 @@ article = "<p style='text-align: center'><a href='https://papers.nips.cc/paper/2
 examples = [["data/hurt1.mp4", "data/chairman.png"]]
 generator, kp_detector = load_checkpoints(
     config_path="config/vox-256.yaml",
-    checkpoint_path="https://yehc.oss-cn-shanghai.aliyuncs.com/vox-adv-cpk.pth.tar",
+    checkpoint_path="https://download.openxlab.org.cn/models/mashiro/first-order-model/weight/first-order-model",
 )
 
 iface = gr.Interface(
